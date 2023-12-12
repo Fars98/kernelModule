@@ -1,14 +1,28 @@
-#include<linux/module.h>
-#include<linux/kernel.h>
+#define __KERNEL__         
+#define MODULE             
 
-int init_module()
+#include <linux/module.h>     
+#include <linux/kernel.h>     
+#include <linux/init.h>       
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Farseena");
+MODULE_DESCRIPTION("A hello world kernel module");
+
+int __init init_hello(void);
+void  __exit cleanup_module(void);
+
+int __init init_hello()
 {
-	printk(KERN_INFO "Kernel module loaded\n");
-	return 0;
+    printk("Hello world... \n");
+    return 0;
+
 }
 
-
-void cleanup_module()
+void  __exit cleanup_module() 
 {
-	printk(KERN_INFO "Kernel module unloaded\n");
+  printk("Kernel module unloaded \n");
 }
+
+module_init(init_hello);
+
